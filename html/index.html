@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid19 - Vilhena - RO</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body class="container">
+    
+    <header class="header">
+        <img src="assets/images/ifro.png" alt="Logo do IFRO Campus Vilhenab">
+        <img src="assets/images/prefeitura_vilhena.jpeg" alt="Logo da Prefeitura de Vilhena">
+        </section>
+    </header>
+
+    <section class="alert">
+        <section>
+            <h2>Casos Recuperados</h2>
+            <div class="green" id="recuperados">0</div>
+        </section>
+        <section >
+            <h2>Casos Confirmados</h2>
+            <div class="red" id="confirmados">0</div>
+        </section>
+        <section>
+            <h2>Casos Suspeitos</h2>
+            <div class="pink" id="suspeitos">0</div>
+        </section>
+    <!-- </section>
+    <section class="alert"> -->
+        <section>
+            <h2>Casos Ativos</h2>
+            <div class="pink" id="ativos">0</div>
+        </section>
+        <section>
+            <h2>Casos Descartados</h2>
+            <div class="pink" id="descartados">0</div>
+        </section>        
+        <section>
+            <h2>Casos Internados</h2>
+            <div class="orange" id="internados">0</div>
+        </section> 
+    </section>
+
+    <section class="graph">
+        <canvas id="grafico_faixa_etaria" width="400" height="400">></canvas>
+        <canvas id="grafico_sexo" width="400" height="400">></canvas>
+        <canvas id="grafico_evolucao_recuperados" width="400" height="400">></canvas>
+        <canvas id="grafico_evolucao_suspeitos" width="400" height="400">></canvas>
+        <canvas id="grafico_evolucao_confirmados" width="400" height="400">></canvas>
+        <canvas id="grafico_confirmados_suspeitos" width="400" height="400">></canvas>
+    </section>
+    
+    <footer class="line footer">
+        <div>
+            <p>Fonte: Secretaria Municipal de Saúde / Secretaria Municipal de Comunicação</p>
+            <p>Desenvolvido por IFRO Campus Vilhena</p>
+            <p><a href="mailto:juliano.naves@ifro.edu.br">Prof.º Juliano Fisher Naves</a></p>
+            <p><a href="mailto:marco.andrade@ifro.edu.br">Prof.º Marco Andrade</a></p>
+        </div>
+    </footer>
+
+    <script src="assets/js/Chart.min.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <script>run()</script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+        ga('create', 'UA-100408837-1', 'auto');
+        ga('send', 'pageview');
+      </script>    
+</body>
+</html>
