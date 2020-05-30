@@ -195,11 +195,33 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // L.marker([51.5, -0.09]).addTo(mymap)
 //     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
-L.circle([-12.734791, -60.132294], 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup('Casos confirmados: ');
+// L.circle([-12.734791, -60.132294], 500, {
+//     color: 'red',
+//     fillColor: '#f03',
+//     fillOpacity: 0.5
+// }).addTo(mymap).bindPopup('Casos confirmados: ');
+
+
+fetch(url + '/bairros')
+    .then(response => {
+        response.json().then(dados => {
+            dados.forEach(d => {
+                // console.log(typeof(d.coordenadas))
+                var coordenadas = d.coordenadas.split(',')
+                var tamanho = d.casos_ativos * 200
+                // console.log(coordenadas[0]);
+                // L.circle([-12.734791, -60.132294], 500, {
+                // Plotando somente os casos ativos
+                if (d.casos_ativos > 0){
+                    L.circle([coordenadas[0], coordenadas[1]], tamanho, {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5
+                    }).addTo(mymap).bindPopup(d.nome + ": " + d.casos_ativos);
+                }
+            })
+        })
+    })
 
 // L.polygon([
 //     [51.509, -0.08],

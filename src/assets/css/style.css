@@ -92,6 +92,9 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.graph > h2{
+    padding: 0.7em;
+}
 .graph > canvas{
     margin: 0.5em;
     background-color: #FAFAFA;
