@@ -51,13 +51,26 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     j.sexo = [];
     j.sexo.push(sexo);
     j.dados = []
+    j.bairros = []
+
+    // Capturando os casos ativos por bairro
+    const sheet3 = doc.sheetsByIndex[0];
+    await sheet3.loadCells('A12:B35');
+    for (var i = 12; i <= 35; i++){
+        const bairro = {}
+        bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
+        bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
+        j.bairros.push(bairro);
+    }
+    console.log(j.bairros);
 
     // Capturando os dados
     const qtdDias = sheet.getCellByA1('B9').value + 3;
-    console.log(qtdDias)
+    // console.log(qtdDias)
     const sheet2 = doc.sheetsByIndex[1];
     const celulas = 'A3:I' + qtdDias.toString();
     await sheet2.loadCells(celulas);
+
 
     for (var i = 3; i <= qtdDias; i++){
 
@@ -73,8 +86,6 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
         dados.novos = sheet2.getCellByA1('I' + i.toString()).value;
         j.dados.push(dados)
     }
-
-    // console.log(j);
 
     // Gravando no arquivo db.json
     fs.writeFileSync("db.json", JSON.stringify(j));
