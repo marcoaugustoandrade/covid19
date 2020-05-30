@@ -180,7 +180,7 @@ fetch(url + '/dados')
     })
 
 // Mapas
-var mymap = L.map('mapid').setView([-12.734791, -60.132294], 13);
+var mymap = L.map('mapid').setView([-12.734791, -60.132294], 13.4);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFyY29hdWd1c3RvYW5kcmFkZSIsImEiOiJja2Fzd2RncnYwM3JqMnFuNHc0MGd5Ym1mIn0.YWOW66o-Wn_l_E6RnPJUgQ', {
     maxZoom: 18,
@@ -208,7 +208,7 @@ fetch(url + '/bairros')
             dados.forEach(d => {
                 // console.log(typeof(d.coordenadas))
                 var coordenadas = d.coordenadas.split(',')
-                var tamanho = d.casos_ativos * 200
+                var tamanho = d.casos_ativos * 100
                 // console.log(coordenadas[0]);
                 // L.circle([-12.734791, -60.132294], 500, {
                 // Plotando somente os casos ativos
@@ -218,6 +218,8 @@ fetch(url + '/bairros')
                         fillColor: '#f03',
                         fillOpacity: 0.5
                     }).addTo(mymap).bindPopup(d.nome + ": " + d.casos_ativos);
+                    // }).addTo(mymap).bindPopup(d.nome + ": " + d.casos_ativos).bindTooltip(d.casos_ativos.toString()).openTooltip();
+
                 }
             })
         })
