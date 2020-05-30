@@ -6,13 +6,14 @@
     <title>Covid19 - Vilhena - RO</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 </head>
 <body class="container">
     
     <header class="header">
         <img src="assets/images/ifro.png" alt="Logo do IFRO Campus Vilhenab">
         <img src="assets/images/prefeitura_vilhena.jpeg" alt="Logo da Prefeitura de Vilhena">
-        <img src="assets/images/saude.jpeg" alt="Logo da Prefeitura de Vilhena">
+        <img src="assets/images/saude.jpeg" alt="Logo da Secretaria de Saúde de Vilhena">
         </section>
     </header>
 
@@ -53,6 +54,10 @@
         <canvas id="grafico_evolucao_confirmados" width="400" height="400">></canvas>
         <canvas id="grafico_confirmados_suspeitos" width="400" height="400">></canvas>
     </section>
+
+    <section class="graph">
+        <div id="mapid" style="width: 100%; height: 400px; position: relative;" class="leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex="0"></div>
+    </section>
     
     <footer class="line footer">
         <div>
@@ -63,6 +68,7 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="assets/js/Chart.min.js"></script>
     <script src="assets/js/functions.js"></script>
     <script>run()</script>
