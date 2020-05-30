@@ -55,11 +55,12 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
 
     // Capturando os casos ativos por bairro
     const sheet3 = doc.sheetsByIndex[0];
-    await sheet3.loadCells('A12:B35');
+    await sheet3.loadCells('A12:C35');
     for (var i = 12; i <= 35; i++){
         const bairro = {}
         bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
         bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
+        bairro.coordenadas = sheet3.getCellByA1('C' + i.toString()).value;
         j.bairros.push(bairro);
     }
     console.log(j.bairros);
