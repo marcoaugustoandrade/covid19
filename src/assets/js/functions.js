@@ -227,7 +227,7 @@ fetch(url + '/dados')
                 data: {
                     labels: labels_evolucao,
                     datasets: [{
-                        label: 'Evolução dos casos internados',
+                        label: 'Casos internados por data',
                         data: data_internados,
                         backgroundColor: '#ffa039'
                     }]
@@ -257,13 +257,13 @@ fetch(url + '/dados')
             var confirmados_recuperados = {
                 labels: labels_evolucao,
                 datasets: [{
-                        backgroundColor: '#6bb964',
-                        data: data_confirmados,
-                        label: 'confirmados'
-                    }, {
                         backgroundColor: '#284d93',
                         data: data_recuperados,
                         label: 'recuperados'
+                    },{
+                        backgroundColor: '#6bb964',
+                        data: data_confirmados,
+                        label: 'confirmados'
                     }]
             }
             var lineChartConfirmadosRecuperados = new Chart(ctx_grafico_confirmados_recuperados, {
@@ -288,24 +288,6 @@ fetch(url + '/dados')
                 type: 'line',
                 data: confirmados_suspeitos
             });
-
-            // var teste = {
-            //     labels: labels_evolucao,
-            //     datasets: [{
-            //             backgroundColor: '#e44a65',
-            //             data: data_confirmados,
-            //             label: 'confirmados'
-            //         }, {
-            //             backgroundColor: '#ffa039',
-            //             data: data_suspeitos,
-            //             label: 'suspeitos'
-            //         }]
-            // }
-            // var lineChartConfirmadosSuspeitos = new Chart(ctx_confirmados_suspeitos, {
-            //     type: 'line',
-            //     data: teste
-            // });
-
         })
     })
 
@@ -371,3 +353,4 @@ function onMapClick(e) {
 }
 
 mymap.on('click', onMapClick);
+
