@@ -10,8 +10,15 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0];
     
+    await sheet.loadCells('A1:H10');
+    
+    // Configuração de versão e data
+    const config = {};
+    config.id = 1;
+    config.versao = sheet.getCellByA1('B9').value;;
+    config.data = sheet.getCellByA1('B10').formattedValue;
+    
     // Atualizando o quantitativo de casos
-    await sheet.loadCells('A1:H9');
     const casos = {};
     casos.id = 1;
     casos.suspeitos = sheet.getCellByA1('B2').value; 
@@ -21,7 +28,6 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     casos.internados = sheet.getCellByA1('B6').value;
     casos.ativos = sheet.getCellByA1('B7').value;
     casos.novos = sheet.getCellByA1('B8').value;
-    
 
     // Atualizando a quantidade de casos por faixa etária
     const faixa = {};
@@ -44,6 +50,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
 
     // Criando uma estrutura para armazenar os dados
     const j = {}
+    j.config = [];
+    j.config.push(config);
     j.casos = [];
     j.casos.push(casos);
     j.faixaetaria = [];
@@ -55,15 +63,15 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
 
     // Capturando os casos ativos por bairro
     const sheet3 = doc.sheetsByIndex[0];
-    await sheet3.loadCells('A12:C35');
-    for (var i = 12; i <= 35; i++){
+    await sheet3.loadCells('A12:C36');
+    for (var i = 12; i <= 36; i++){
         const bairro = {}
         bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
         bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
         bairro.coordenadas = sheet3.getCellByA1('C' + i.toString()).value;
         j.bairros.push(bairro);
     }
-    console.log(j.bairros);
+    // console.log(j.bairros);
 
     // Capturando os dados
     const qtdDias = sheet.getCellByA1('B9').value + 3;
