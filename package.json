@@ -1,11 +1,11 @@
 {
-  "name": "grafana-covid19",
+  "name": "covid19",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "/home/marco/projects/grafana-covid19/node_modules/.bin/json-server --watch db.json --read-only --host localhost"
+	"start": "/var/www/node_modules/.bin/json-server --watch db.json --read-only --host 10.84.5.24"
   },
   "repository": {
     "type": "git",
