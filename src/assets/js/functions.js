@@ -4,6 +4,8 @@ let suspeitos = document.querySelector("#suspeitos")
 let ativos = document.querySelector("#ativos")
 let descartados = document.querySelector("#descartados")
 let internados = document.querySelector("#internados")
+let novos = document.querySelector("#novos")
+let atualizacao = document.querySelector('#atualizacao')
 
 let url = 'https://apicovid19.adsvilhena.ninja'
 
@@ -18,11 +20,17 @@ function run(){
                 ativos.innerText = dados[0].ativos
                 descartados.innerText = dados[0].descartados
                 internados.innerText = dados[0].internados
+                novos.innerText = dados[0].novos
                 // console.log(dados[0])
             })
         })
-
-    }
+    fetch(url + '/config')
+        .then(response => {
+            response.json().then(dados => {
+                atualizacao.innerText = dados[0].data
+            })
+        })
+}
 // Gráfico faixa etária
 var ctx_faixa_etaria = document.getElementById('grafico_faixa_etaria').getContext('2d');    
 var data = []
@@ -53,7 +61,7 @@ fetch(url + '/faixaetaria')
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Distribuição por faixa etária',
+                        label: 'Distribuição por faixa etária (casos confirmados)',
                         data: data,
                         backgroundColor: '#284d93'
                     }]
@@ -83,7 +91,7 @@ fetch(url + '/sexo')
                 data: {
                     labels: labels_sexo,
                     datasets: [{
-                        label: 'Distribuição por sexo',
+                        label: 'Distribuição por sexo (casos confirmados)',
                         data: data_sexo,
                         backgroundColor: '#284d93'
                     }]
@@ -94,16 +102,23 @@ fetch(url + '/sexo')
     })
 
 // Gráficos de evolução
-var ctx_evolucao_suspeitos = document.getElementById('grafico_evolucao_suspeitos').getContext('2d');
-var ctx_evolucao_confirmados = document.getElementById('grafico_evolucao_confirmados').getContext('2d');
+var ctx_casos_novos = document.getElementById('grafico_casos_novos').getContext('2d');
 var ctx_evolucao_recuperados = document.getElementById('grafico_evolucao_recuperados').getContext('2d');
-var ctx_confirmados_suspeitos = document.getElementById('grafico_confirmados_suspeitos').getContext('2d');
+var ctx_evolucao_ativos = document.getElementById('grafico_evolucao_ativos').getContext('2d');
+var ctx_evolucao_confirmados = document.getElementById('grafico_evolucao_confirmados').getContext('2d');
+var ctx_evolucao_suspeitos = document.getElementById('grafico_evolucao_suspeitos').getContext('2d');
+var ctx_evolucao_descartados = document.getElementById('grafico_evolucao_descartados').getContext('2d');
+var ctx_evolucao_internados = document.getElementById('grafico_evolucao_internados').getContext('2d');
+var ctx_grafico_confirmados_descartados = document.getElementById('grafico_confirmados_descartados').getContext('2d');
+var ctx_grafico_confirmados_recuperados = document.getElementById('grafico_confirmados_recuperados').getContext('2d');
+var ctx_grafico_confirmados_suspeitos = document.getElementById('grafico_confirmados_suspeitos').getContext('2d');
 
-
-var data_suspeitos = [];
-var data_confirmados = [];
-var data_descartados = [];
+var data_novos = [];
 var data_recuperados = [];
+var data_ativos = [];
+var data_confirmados = [];
+var data_suspeitos = [];
+var data_descartados = [];
 var data_internados = [];
 var labels_evolucao = [];
 
@@ -112,40 +127,31 @@ fetch(url + '/dados')
         response.json().then(dados => {
 
             dados.forEach(d => {
-                data_suspeitos.push(d.suspeitos);
-                data_confirmados.push(d.confirmados);
-                data_descartados.push(d.descartados);
+                data_novos.push(d.novos);
                 data_recuperados.push(d.recuperados);
+                data_ativos.push(d.ativos);
+                data_confirmados.push(d.confirmados);
+                data_suspeitos.push(d.suspeitos);
+                data_descartados.push(d.descartados);
                 data_internados.push(d.internados);
                 labels_evolucao.push(d.data)
             });
 
-            var lineChartEvolucaoSuspeitos = new Chart(ctx_evolucao_suspeitos, {
+            // Casos novos
+            var lineChartCasosNovos = new Chart(ctx_casos_novos, {
                 type: 'line',
                 data: {
                     labels: labels_evolucao,
                     datasets: [{
-                        label: 'Evolução dos casos suspeitos',
-                        data: data_suspeitos,
-                        backgroundColor: '#e75d5f'
+                        label: 'Casos novos por data',
+                        data: data_novos,
+                        backgroundColor: '#6bb964'
                     }]
                 }
             //     // options: options
             })
 
-            var lineChartEvolucaoConfirmados = new Chart(ctx_evolucao_confirmados, {
-                type: 'line',
-                data: {
-                    labels: labels_evolucao,
-                    datasets: [{
-                        label: 'Evolução dos casos confirmados',
-                        data: data_confirmados,
-                        backgroundColor: '#e44a65'
-                    }]
-                }
-            //     // options: options
-            })
-            
+            // Evolução recuperados
             var lineChartEvolucaoRecuperados = new Chart(ctx_evolucao_recuperados, {
                 type: 'line',
                 data: {
@@ -159,22 +165,146 @@ fetch(url + '/dados')
             //     // options: options
             })
 
-            var teste = {
+            // Evolução ativos
+            var lineChartEvolucaoAtivos = new Chart(ctx_evolucao_ativos, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Evolução dos casos ativos',
+                        data: data_ativos,
+                        backgroundColor: '#e44a65'
+                    }]
+                }
+            //     // options: options
+            })
+
+            // Evolução confirmados
+            var lineChartEvolucaoConfirmados = new Chart(ctx_evolucao_confirmados, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Evolução dos casos confirmados',
+                        data: data_confirmados,
+                        backgroundColor: '#e75d5f'
+                    }]
+                }
+            //     // options: options
+            })
+            
+            // Evolução suspeitos
+            var lineChartEvolucaoSuspeitos = new Chart(ctx_evolucao_suspeitos, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Evolução dos casos suspeitos',
+                        data: data_suspeitos,
+                        backgroundColor: '#e44a65'
+                    }]
+                }
+            //     // options: options
+            })
+
+            // Evolução descartados
+            var lineChartEvolucaoDescartados = new Chart(ctx_evolucao_descartados, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Evolução dos casos descartados',
+                        data: data_descartados,
+                        backgroundColor: '#e44a65'
+                    }]
+                }
+            //     // options: options
+            })
+
+            // Evolução internados
+            var lineChartEvolucaoInternados = new Chart(ctx_evolucao_internados, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Evolução dos casos internados',
+                        data: data_internados,
+                        backgroundColor: '#ffa039'
+                    }]
+                }
+            //     // options: options
+            })
+            
+            // Confirmados X descartados
+            var confirmados_descartados = {
                 labels: labels_evolucao,
                 datasets: [{
-                        backgroundColor: '#e44a65',
+                        backgroundColor: '#6bb964',
                         data: data_confirmados,
                         label: 'confirmados'
                     }, {
-                        backgroundColor: '#ffa039',
+                        backgroundColor: '#e44a65',
+                        data: data_descartados,
+                        label: 'descartados'
+                    }]
+            }
+            var lineChartConfirmadosDescartados = new Chart(ctx_grafico_confirmados_descartados, {
+                type: 'line',
+                data: confirmados_descartados
+            });
+
+            // Confirmados X recuperados
+            var confirmados_recuperados = {
+                labels: labels_evolucao,
+                datasets: [{
+                        backgroundColor: '#6bb964',
+                        data: data_confirmados,
+                        label: 'confirmados'
+                    }, {
+                        backgroundColor: '#284d93',
+                        data: data_recuperados,
+                        label: 'recuperados'
+                    }]
+            }
+            var lineChartConfirmadosRecuperados = new Chart(ctx_grafico_confirmados_recuperados, {
+                type: 'line',
+                data: confirmados_recuperados
+            });
+
+            // Confirmados X suspeitos
+            var confirmados_suspeitos = {
+                labels: labels_evolucao,
+                datasets: [{
+                        backgroundColor: '#6bb964',
+                        data: data_confirmados,
+                        label: 'confirmados'
+                    }, {
+                        backgroundColor: '#284d93',
                         data: data_suspeitos,
                         label: 'suspeitos'
                     }]
             }
-            var lineChartConfirmadosSuspeitos = new Chart(ctx_confirmados_suspeitos, {
+            var lineChartConfirmadosSuspeitos = new Chart(ctx_grafico_confirmados_suspeitos, {
                 type: 'line',
-                data: teste
+                data: confirmados_suspeitos
             });
+
+            // var teste = {
+            //     labels: labels_evolucao,
+            //     datasets: [{
+            //             backgroundColor: '#e44a65',
+            //             data: data_confirmados,
+            //             label: 'confirmados'
+            //         }, {
+            //             backgroundColor: '#ffa039',
+            //             data: data_suspeitos,
+            //             label: 'suspeitos'
+            //         }]
+            // }
+            // var lineChartConfirmadosSuspeitos = new Chart(ctx_confirmados_suspeitos, {
+            //     type: 'line',
+            //     data: teste
+            // });
 
         })
     })

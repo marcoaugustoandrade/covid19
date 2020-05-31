@@ -19,6 +19,12 @@ gulp.task('minify-css', () => {
       .pipe(gulp.dest('html/assets/css/'))
 })
 
+gulp.task('minify-css-leaflet', () => {
+    return gulp.src('src/assets/css/leaflet.css')
+      .pipe(cleanCSS())
+      .pipe(gulp.dest('html/assets/css/'))
+})
+
 gulp.task('copy-html', () => {
     return gulp.src('src/index.html', {allowEmpty: true})
     .pipe(minify({noSource: true}))
@@ -30,4 +36,4 @@ gulp.task('copy-images', () => {
     .pipe(gulp.dest('html/assets/images/'))
 })
 
-gulp.task('default', gulp.series(['minify-js', 'minify-css', 'copy-html','copy-images']))
+gulp.task('default', gulp.series(['minify-js', 'minify-css', 'minify-css-leaflet', 'copy-html','copy-images']))

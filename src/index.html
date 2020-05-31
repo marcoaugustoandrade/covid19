@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="assets/css/leaflet.css"/>
 </head>
 <body class="container">
     
@@ -18,7 +18,15 @@
         </section>
     </header>
 
+    <section class="update">
+        Última atualização: <b id="atualizacao">00/00/0000</b>
+    </section>
+
     <section class="alert">
+        <section>
+            <h2>Casos Fatais</h2>
+            <div class="black" id="fatais">0</div>
+        </section>
         <section>
             <h2>Casos Recuperados</h2>
             <div class="green" id="recuperados">0</div>
@@ -42,16 +50,30 @@
         <section>
             <h2>Casos Internados</h2>
             <div class="orange" id="internados">0</div>
-        </section> 
+        </section>
+        <section>
+            <h2>Casos Novos</h2>
+            <div class="orange" id="novos">0</div>
+        </section>
     </section>
 
     <section class="graph">
+        
         <canvas id="grafico_faixa_etaria" width="400" height="400">></canvas>
         <canvas id="grafico_sexo" width="400" height="400">></canvas>
-        <canvas id="grafico_evolucao_recuperados" width="400" height="400">></canvas>
-        <canvas id="grafico_evolucao_suspeitos" width="400" height="400">></canvas>
-        <canvas id="grafico_evolucao_confirmados" width="400" height="400">></canvas>
-        <canvas id="grafico_confirmados_suspeitos" width="400" height="400">></canvas>
+
+        <canvas id="grafico_casos_novos" width="400" height="400"></canvas>
+        
+        <canvas id="grafico_evolucao_recuperados" width="400" height="400"></canvas>
+        <canvas id="grafico_evolucao_ativos" width="400" height="400"></canvas>
+        <canvas id="grafico_evolucao_confirmados" width="400" height="400"></canvas>
+        <canvas id="grafico_evolucao_suspeitos" width="400" height="400"></canvas>
+        <canvas id="grafico_evolucao_descartados" width="400" height="400"></canvas>
+        <canvas id="grafico_evolucao_internados" width="400" height="400"></canvas>
+        
+        <canvas id="grafico_confirmados_descartados" width="400" height="400"></canvas>
+        <canvas id="grafico_confirmados_recuperados" width="400" height="400"></canvas>
+        <canvas id="grafico_confirmados_suspeitos" width="400" height="400"></canvas>
     </section>
 
     <section class="graph">
@@ -68,18 +90,18 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="assets/js/leaflet.js"></script>
     <script src="assets/js/Chart.min.js"></script>
     <script src="assets/js/functions.js"></script>
     <script>run()</script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167978402-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167978402-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  gtag('config', 'UA-167978402-1');
-</script>   
+        gtag('config', 'UA-167978402-1');
+    </script>   
 </body>
 </html>
