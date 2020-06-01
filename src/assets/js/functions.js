@@ -5,7 +5,7 @@ let ativos = document.querySelector("#ativos")
 let descartados = document.querySelector("#descartados")
 let internados = document.querySelector("#internados")
 let novos = document.querySelector("#novos")
-let atualizacao = document.querySelector('#atualizacao')
+let atualizacao = document.querySelectorAll('.atualizacao')
 
 let url = 'https://apicovid19.adsvilhena.ninja'
 
@@ -27,7 +27,8 @@ function run(){
     fetch(url + '/config')
         .then(response => {
             response.json().then(dados => {
-                atualizacao.innerText = dados[0].data
+                atualizacao[0].innerText = dados[0].data
+                atualizacao[1].innerText = dados[0].data
             })
         })
 }

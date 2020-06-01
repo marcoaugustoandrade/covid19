@@ -97,6 +97,6 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     }
 
     // Gravando no arquivo db.json
-    fs.writeFileSync("db.json", JSON.stringify(j));
+    fs.writeFileSync("/var/www/db.json", JSON.stringify(j));
 
 })();
