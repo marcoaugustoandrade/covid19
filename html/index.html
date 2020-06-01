@@ -59,18 +59,25 @@
 
     <section class="graph">
         
+        <div style="position: relative;">
+            <div id="uti_percentual" class="percentual_leitos">0%</div>
+            <canvas id="grafico_leitos_uti" width="400" height="400"></canvas>
+        </div>
+        <div style="position: relative;">
+            <div id="enfermaria_percentual" class="percentual_leitos" style="left: 35%;">0%</div>
+            <canvas id="grafico_leitos_enfermaria" width="400" height="400"></canvas>
+        </div>
+        
         <canvas id="grafico_faixa_etaria" width="400" height="400">></canvas>
         <canvas id="grafico_sexo" width="400" height="400">></canvas>
 
         <canvas id="grafico_casos_novos" width="400" height="400"></canvas>
-        
         <canvas id="grafico_evolucao_recuperados" width="400" height="400"></canvas>
         <canvas id="grafico_evolucao_ativos" width="400" height="400"></canvas>
         <canvas id="grafico_evolucao_confirmados" width="400" height="400"></canvas>
         <canvas id="grafico_evolucao_suspeitos" width="400" height="400"></canvas>
         <canvas id="grafico_evolucao_descartados" width="400" height="400"></canvas>
         <canvas id="grafico_evolucao_internados" width="400" height="400"></canvas>
-        
         <canvas id="grafico_confirmados_descartados" width="400" height="400"></canvas>
         <canvas id="grafico_confirmados_recuperados" width="400" height="400"></canvas>
         <canvas id="grafico_confirmados_suspeitos" width="400" height="400"></canvas>

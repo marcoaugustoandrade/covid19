@@ -7,6 +7,9 @@ let internados = document.querySelector("#internados")
 let novos = document.querySelector("#novos")
 let atualizacao = document.querySelectorAll('.atualizacao')
 
+let uti_percentual = document.querySelector("#uti_percentual")
+let enfermaria_percentual = document.querySelector("#enfermaria_percentual")
+
 let url = 'https://apicovid19.adsvilhena.ninja'
 
 // Totalizador
@@ -32,6 +35,57 @@ function run(){
             })
         })
 }
+
+// Gráfico de leitos
+var ctx_leitos_uti = document.getElementById('grafico_leitos_uti').getContext('2d');
+var ctx_leitos_enfermaria = document.getElementById('grafico_leitos_enfermaria').getContext('2d');
+var data_leitos_uti = [];
+var data_leitos_enfermaria = [];
+var labels_leitos_uti = ['UTI disponíveis', 'UTI utilizadas'];
+var labels_leitos_enfermaria = ['Enfermarias disponíveis', 'Enfermarias utilizadas'];
+
+fetch(url + '/leitos')
+    .then(response => {
+        response.json().then(dados => {
+
+            data_leitos_uti.push(dados[0]['uti'] - dados[0]['uti_utilizado'])
+            data_leitos_uti.push(dados[0]['uti_utilizado'])
+            data_leitos_enfermaria.push(dados[0]['enfermaria'] - dados[0]['enfermaria_utilizado'])
+            data_leitos_enfermaria.push(dados[0]['enfermaria_utilizado'])
+            // console.log(data_leitos);
+
+            uti_percentual.innerText = (dados[0]['uti_utilizado'] * 100 / dados[0]['uti']).toFixed().toString() + " %"
+            enfermaria_percentual.innerHTML = (dados[0]['enfermaria_utilizado'] * 100 / dados[0]['enfermaria']).toFixed(1).toString() + " %"
+
+            var myBarChartLeitosUti = new Chart(ctx_leitos_uti, {
+                type: 'doughnut',
+                data: {
+                    labels: labels_leitos_uti,
+                    datasets: [{
+                        label: 'Ocupação dos leitos de UTI',
+                        data: data_leitos_uti,
+                        backgroundColor: ['#284d93', '#ec5e50']
+                    }]
+                }
+                // options: options
+            })
+
+            var myBarChartLeitosEnfermaria = new Chart(ctx_leitos_enfermaria, {
+                type: 'doughnut',
+                data: {
+                    labels: labels_leitos_enfermaria,
+                    datasets: [{
+                        label: 'Ocupação dos leitos de Enfermarua',
+                        data: data_leitos_enfermaria,
+                        backgroundColor: ['#284d93', '#ec5e50']
+                    }]
+                }
+                // options: options
+            })
+
+        })
+    })
+
 // Gráfico faixa etária
 var ctx_faixa_etaria = document.getElementById('grafico_faixa_etaria').getContext('2d');    
 var data = []
