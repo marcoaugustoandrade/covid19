@@ -146,7 +146,7 @@ fetch(url + '/dados')
                     datasets: [{
                         label: 'Casos novos por data',
                         data: data_novos,
-                        backgroundColor: '#6bb964'
+                        backgroundColor: '#ffa039'
                     }]
                 }
             //     // options: options
@@ -174,7 +174,7 @@ fetch(url + '/dados')
                     datasets: [{
                         label: 'Evolução dos casos ativos',
                         data: data_ativos,
-                        backgroundColor: '#e44a65'
+                        backgroundColor: '#ed5f51'
                     }]
                 }
             //     // options: options
@@ -188,7 +188,7 @@ fetch(url + '/dados')
                     datasets: [{
                         label: 'Evolução dos casos confirmados',
                         data: data_confirmados,
-                        backgroundColor: '#e75d5f'
+                        backgroundColor: '#ed5f51'
                     }]
                 }
             //     // options: options
@@ -202,7 +202,7 @@ fetch(url + '/dados')
                     datasets: [{
                         label: 'Evolução dos casos suspeitos',
                         data: data_suspeitos,
-                        backgroundColor: '#e44a65'
+                        backgroundColor: '#ed5f51'
                     }]
                 }
             //     // options: options
@@ -216,7 +216,7 @@ fetch(url + '/dados')
                     datasets: [{
                         label: 'Evolução dos casos descartados',
                         data: data_descartados,
-                        backgroundColor: '#e44a65'
+                        backgroundColor: '#284d93'
                     }]
                 }
             //     // options: options
@@ -244,7 +244,7 @@ fetch(url + '/dados')
                         data: data_confirmados,
                         label: 'confirmados'
                     }, {
-                        backgroundColor: '#e44a65',
+                        backgroundColor: '#ed5f51',
                         data: data_descartados,
                         label: 'descartados'
                     }]
@@ -280,7 +280,7 @@ fetch(url + '/dados')
                         data: data_confirmados,
                         label: 'confirmados'
                     }, {
-                        backgroundColor: '#284d93',
+                        backgroundColor: '#ed5f51',
                         data: data_suspeitos,
                         label: 'suspeitos'
                     }]
