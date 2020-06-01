@@ -53,8 +53,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     const leito = {};
     leito.id = 1;
     leito.uti = sheet.getCellByA1('G13').value;
-    leito.uti_utilizado = sheet.getCellByA1('G14').value;
-    leito.enfermaria = sheet.getCellByA1('H13').value;
+    leito.uti_utilizado = sheet.getCellByA1('H13').value;
+    leito.enfermaria = sheet.getCellByA1('G14').value;
     leito.enfermaria_utilizado = sheet.getCellByA1('H14').value;
 
     // Criando uma estrutura para armazenar os dados
