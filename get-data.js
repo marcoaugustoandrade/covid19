@@ -48,6 +48,15 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     sexo.masculino = sheet.getCellByA1('H3').value;
     sexo.sigilo = sheet.getCellByA1('H4').value;
 
+    // Capturando as informações sobre leitos
+    await sheet.loadCells('G13:H14');
+    const leito = {};
+    leito.id = 1;
+    leito.uti = sheet.getCellByA1('G13').value;
+    leito.uti_utilizado = sheet.getCellByA1('G14').value;
+    leito.enfermaria = sheet.getCellByA1('H13').value;
+    leito.enfermaria_utilizado = sheet.getCellByA1('H14').value;
+
     // Criando uma estrutura para armazenar os dados
     const j = {}
     j.config = [];
@@ -58,6 +67,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     j.faixaetaria.push(faixa);
     j.sexo = [];
     j.sexo.push(sexo);
+    j.leitos = [];
+    j.leitos.push(leito);
     j.dados = []
     j.bairros = []
 
