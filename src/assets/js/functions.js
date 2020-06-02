@@ -37,51 +37,74 @@ function run(){
 }
 
 // Gráfico de leitos
-var ctx_leitos_uti = document.getElementById('grafico_leitos_uti').getContext('2d');
-var ctx_leitos_enfermaria = document.getElementById('grafico_leitos_enfermaria').getContext('2d');
-var data_leitos_uti = [];
-var data_leitos_enfermaria = [];
-var labels_leitos_uti = ['UTI disponíveis', 'UTI utilizadas'];
-var labels_leitos_enfermaria = ['Enfermarias disponíveis', 'Enfermarias utilizadas'];
+// var ctx_leitos_uti = document.getElementById('grafico_leitos_uti').getContext('2d');
+// var ctx_leitos_enfermaria = document.getElementById('grafico_leitos_enfermaria').getContext('2d');
+// var data_leitos_uti = [];
+// var data_leitos_enfermaria = [];
+// var labels_leitos_uti = ['UTI disponíveis', 'UTI utilizadas'];
+// var labels_leitos_enfermaria = ['Enfermarias disponíveis', 'Enfermarias utilizadas'];
+
+var ctx_leitos = document.getElementById('grafico_leitos').getContext('2d');
+var data_leitos = []
+var labels_leitos = ['UTI utilizadas', 'Enfermarias utilizadas', 'Leitos disponíveis'];[]
 
 fetch(url + '/leitos')
     .then(response => {
         response.json().then(dados => {
 
-            data_leitos_uti.push(dados[0]['uti'] - dados[0]['uti_utilizado'])
-            data_leitos_uti.push(dados[0]['uti_utilizado'])
-            data_leitos_enfermaria.push(dados[0]['enfermaria'] - dados[0]['enfermaria_utilizado'])
-            data_leitos_enfermaria.push(dados[0]['enfermaria_utilizado'])
-            // console.log(data_leitos);
 
-            uti_percentual.innerText = (dados[0]['uti_utilizado'] * 100 / dados[0]['uti']).toFixed().toString() + " %"
-            enfermaria_percentual.innerHTML = (dados[0]['enfermaria_utilizado'] * 100 / dados[0]['enfermaria']).toFixed(1).toString() + " %"
+            data_leitos.push(dados[0]['uti_utilizado'])
+            data_leitos.push(dados[0]['enfermaria_utilizado'])
+            data_leitos.push((dados[0]['uti'] + dados[0]['enfermaria']) - (dados[0]['uti_utilizado'] + dados[0]['enfermaria_utilizado']))
 
-            var myBarChartLeitosUti = new Chart(ctx_leitos_uti, {
+            var myBarChartLeitos = new Chart(ctx_leitos, {
                 type: 'doughnut',
                 data: {
-                    labels: labels_leitos_uti,
+                    labels: labels_leitos,
                     datasets: [{
-                        label: 'Ocupação dos leitos de UTI',
-                        data: data_leitos_uti,
-                        backgroundColor: ['#284d93', '#ec5e50']
+                        label: 'Ocupação dos leitos',
+                        data: data_leitos,
+                        backgroundColor: ['#ec5e50', '#ffa039', '#284d93']
                     }]
                 }
                 // options: options
             })
 
-            var myBarChartLeitosEnfermaria = new Chart(ctx_leitos_enfermaria, {
-                type: 'doughnut',
-                data: {
-                    labels: labels_leitos_enfermaria,
-                    datasets: [{
-                        label: 'Ocupação dos leitos de Enfermarua',
-                        data: data_leitos_enfermaria,
-                        backgroundColor: ['#284d93', '#ec5e50']
-                    }]
-                }
-                // options: options
-            })
+            leitos_percentual.innerText = parseFloat((data_leitos[0] + data_leitos[1]) * 100 / (data_leitos[0] + data_leitos[1] + data_leitos[2])).toFixed().toString() + " %"
+
+            // data_leitos_uti.push(dados[0]['uti'] - dados[0]['uti_utilizado'])
+            // data_leitos_uti.push(dados[0]['uti_utilizado'])
+            // data_leitos_enfermaria.push(dados[0]['enfermaria'] - dados[0]['enfermaria_utilizado'])
+            // data_leitos_enfermaria.push(dados[0]['enfermaria_utilizado'])
+
+           // uti_percentual.innerText = (dados[0]['uti_utilizado'] * 100 / dados[0]['uti']).toFixed().toString() + " %"
+            // enfermaria_percentual.innerHTML = (dados[0]['enfermaria_utilizado'] * 100 / dados[0]['enfermaria']).toFixed(1).toString() + " %"
+
+            // var myBarChartLeitosUti = new Chart(ctx_leitos_uti, {
+            //     type: 'doughnut',
+            //     data: {
+            //         labels: labels_leitos_uti,
+            //         datasets: [{
+            //             label: 'Ocupação dos leitos de UTI',
+            //             data: data_leitos_uti,
+            //             backgroundColor: ['#284d93', '#ec5e50']
+            //         }]
+            //     }
+            //     // options: options
+            // })
+
+            // var myBarChartLeitosEnfermaria = new Chart(ctx_leitos_enfermaria, {
+            //     type: 'doughnut',
+            //     data: {
+            //         labels: labels_leitos_enfermaria,
+            //         datasets: [{
+            //             label: 'Ocupação dos leitos de Enfermarua',
+            //             data: data_leitos_enfermaria,
+            //             backgroundColor: ['#284d93', '#ec5e50']
+            //         }]
+            //     }
+            //     // options: options
+            // })
 
         })
     })
@@ -359,22 +382,11 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
-// L.marker([51.5, -0.09]).addTo(mymap)
-//     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-
-// L.circle([-12.734791, -60.132294], 500, {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5
-// }).addTo(mymap).bindPopup('Casos confirmados: ');
-
 fetch(url + '/bairros')
     .then(response => {
         response.json().then(dados => {
             dados.forEach(d => {
                 
-                // console.log(d.coordenadas)
-
                 if (d.casos_ativos > 0 && d.coordenadas){
                     
                     L.polygon(d.coordenadas)
@@ -382,13 +394,6 @@ fetch(url + '/bairros')
                             .addTo(mymap)
                             .bindPopup(d.nome + ": " + d.casos_ativos);
                 }
-
-                // if (d.casos_ativos > 0 && d.coordenadas.lenght > 0){
-                //     L.polygon(d.coordenadas)
-                //         .setStyle({fillColor: '#ec5e50', color: '#ec5e50'})
-                //         .addTo(mymap)
-                //         .bindPopup(d.nome);
-                // }
             })
         })
     })

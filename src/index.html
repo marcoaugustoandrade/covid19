@@ -14,8 +14,7 @@
     <header class="header">
         <img src="assets/images/ifro.png" alt="Logo do IFRO Campus Vilhenab">
         <img src="assets/images/prefeitura_vilhena.jpeg" alt="Logo da Prefeitura de Vilhena">
-        <!-- <img src="assets/images/secretarias.jpeg" alt="Logo da Secretaria de Saúde e da Secretaria de Comunicação de Vilhena"> -->
-        <img src="assets/images/saude.jpeg" alt="Logo da Secretaria de Saúde e da Secretaria de Comunicação de Vilhena">
+        <img src="assets/images/secretarias.png" alt="Logo da Secretaria de Saúde e da Secretaria de Comunicação de Vilhena">
         </section>
     </header>
 
@@ -61,13 +60,18 @@
     <section class="graph">
         
         <div style="position: relative;">
+            <div id="leitos_percentual" class="percentual_leitos">0%</div>
+            <canvas id="grafico_leitos" width="400" height="400"></canvas>
+        </div>
+
+        <!-- <div style="position: relative;">
             <div id="uti_percentual" class="percentual_leitos">0%</div>
             <canvas id="grafico_leitos_uti" width="400" height="400"></canvas>
         </div>
         <div style="position: relative;">
             <div id="enfermaria_percentual" class="percentual_leitos" style="left: 35%;">0%</div>
             <canvas id="grafico_leitos_enfermaria" width="400" height="400"></canvas>
-        </div>
+        </div> -->
         
         <canvas id="grafico_faixa_etaria" width="400" height="400">></canvas>
         <canvas id="grafico_sexo" width="400" height="400">></canvas>

@@ -28,7 +28,7 @@
 
 .header > img {
     max-width: 300px;
-    margin: 0.5em;
+    /* margin: 0.5em; */
 }
 .update{
     padding: 0.5em;
@@ -127,8 +127,8 @@
     text-align: center;
     font-size: 3em;
     position: absolute;
-    left: 45%;
-    top: 45%;
+    left: 40%;
+    top: 47%;
     /* left: 1%;
     top: 1%; */
 }
