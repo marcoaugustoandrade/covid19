@@ -76,8 +76,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     let rawdata = fs.readFileSync('/var/www/bairros.json');
     let bairro_dados = JSON.parse(rawdata);
     // bairro_dados.forEach(b => {
-    //     if (b.nome == 'Cohab'){
-    //         console.log(b.coordenadas)
+    //     if (b.nome == 'Cidade Verde I'){
+    //         console.log('Cidade Verde I encontrado no arquivo bairros.json')
     //     }
     // })
     // console.log(bairro_dados[0].nome);
@@ -86,8 +86,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     // Capturando os casos ativos por bairro
     // TODO: célula para contar número de bairros
     const sheet3 = doc.sheetsByIndex[0];
-    await sheet3.loadCells('A12:B37');
-    for (var i = 12; i <= 36; i++){
+    await sheet3.loadCells('A12:B38');
+    for (var i = 12; i <= 38; i++){ //<<=== trocar aqui para quantidade de bairros
         const bairro = {}
         bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
         bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
