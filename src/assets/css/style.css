@@ -72,11 +72,11 @@
 }
 .green{
     background-color: #6bb964;
-    background: linear-gradient(90deg, rgba(107,185,100,0.8) 0%, rgba(107,185,100,1) 100%);
+    /* background: linear-gradient(90deg, rgba(107,185,100,0.8) 0%, rgba(107,185,100,1) 100%); */
 }
 .red-dark{
-    background: rgb(236,94,80);
-    background: linear-gradient(90deg, rgba(236,94,80,1) 0%, rgba(236,94,80,1) 100%);
+    background: #ec5e50;
+    /* background: linear-gradient(90deg, rgba(236,94,80,1) 0%, rgba(236,94,80,1) 100%); */
 }
 .red-light{
     background: rgb(223, 119, 110);
@@ -96,11 +96,11 @@
 }
 .black{
     background-color: #000000;
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%);
+    /* background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%); */
 }
 .blue{
     background-color: #284d93;
-    background: linear-gradient(90deg, rgba(40,77,147,1) 0%, rgba(40,77,147,1) 100%);
+    /* background: linear-gradient(90deg, rgba(40,77,147,1) 0%, rgba(40,77,147,1) 100%); */
 }
 /* fim alertas */
 

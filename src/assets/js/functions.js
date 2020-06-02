@@ -368,35 +368,30 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 //     fillOpacity: 0.5
 // }).addTo(mymap).bindPopup('Casos confirmados: ');
 
-
 fetch(url + '/bairros')
     .then(response => {
         response.json().then(dados => {
             dados.forEach(d => {
-                // console.log(typeof(d.coordenadas))
-                var coordenadas = d.coordenadas.split(',')
-                var tamanho = d.casos_ativos * 100
-                // console.log(coordenadas[0]);
-                // L.circle([-12.734791, -60.132294], 500, {
-                // Plotando somente os casos ativos
-                if (d.casos_ativos > 0){
-                    L.circle([coordenadas[0], coordenadas[1]], tamanho, {
-                        color: 'red',
-                        fillColor: '#f03',
-                        fillOpacity: 0.5
-                    }).addTo(mymap).bindPopup(d.nome + ": " + d.casos_ativos);
-                    // }).addTo(mymap).bindPopup(d.nome + ": " + d.casos_ativos).bindTooltip(d.casos_ativos.toString()).openTooltip();
+                
+                // console.log(d.coordenadas)
 
+                if (d.casos_ativos > 0 && d.coordenadas){
+                    
+                    L.polygon(d.coordenadas)
+                            .setStyle({fillColor: '#ec5e50', color: '#ec5e50'})
+                            .addTo(mymap)
+                            .bindPopup(d.nome + ": " + d.casos_ativos);
                 }
+
+                // if (d.casos_ativos > 0 && d.coordenadas.lenght > 0){
+                //     L.polygon(d.coordenadas)
+                //         .setStyle({fillColor: '#ec5e50', color: '#ec5e50'})
+                //         .addTo(mymap)
+                //         .bindPopup(d.nome);
+                // }
             })
         })
     })
-
-// L.polygon([
-//     [51.509, -0.08],
-//     [51.503, -0.06],
-//     [51.51, -0.047]
-// ]).addTo(mymap).bindPopup("I am a polygon.");
 
 var popup = L.popup();
 
