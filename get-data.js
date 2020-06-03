@@ -109,7 +109,7 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     const qtdDias = sheet.getCellByA1('B9').value + 3;
     // console.log(qtdDias)
     const sheet2 = doc.sheetsByIndex[1];
-    const celulas = 'A3:I' + qtdDias.toString();
+    const celulas = 'A3:J' + qtdDias.toString();
     await sheet2.loadCells(celulas);
 
 
