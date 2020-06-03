@@ -125,6 +125,7 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
         dados.internados = sheet2.getCellByA1('G' + i.toString()).value;
         dados.ativos = sheet2.getCellByA1('H' + i.toString()).value;
         dados.novos = sheet2.getCellByA1('I' + i.toString()).value;
+        dados.obitos = sheet2.getCellByA1('J' + i.toString()).value;
         j.dados.push(dados)
     }
 
