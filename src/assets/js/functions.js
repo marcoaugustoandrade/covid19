@@ -5,6 +5,7 @@ let ativos = document.querySelector("#ativos")
 let descartados = document.querySelector("#descartados")
 let internados = document.querySelector("#internados")
 let novos = document.querySelector("#novos")
+let obitos = document.querySelector("#obitos")
 let atualizacao = document.querySelectorAll('.atualizacao')
 
 let uti_percentual = document.querySelector("#uti_percentual")
@@ -24,6 +25,7 @@ function run(){
                 descartados.innerText = dados[0].descartados
                 internados.innerText = dados[0].internados
                 novos.innerText = dados[0].novos
+                obitos.innerText = dados[0].obitos
                 // console.log(dados[0])
             })
         })

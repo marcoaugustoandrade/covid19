@@ -28,6 +28,7 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     casos.internados = sheet.getCellByA1('B6').value;
     casos.ativos = sheet.getCellByA1('B7').value;
     casos.novos = sheet.getCellByA1('B8').value;
+    casos.obitos = sheet.getCellByA1('H7').value;
 
     // Atualizando a quantidade de casos por faixa etária
     const faixa = {};
