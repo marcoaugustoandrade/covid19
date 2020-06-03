@@ -188,10 +188,12 @@ var ctx_evolucao_ativos = document.getElementById('grafico_evolucao_ativos').get
 var ctx_evolucao_confirmados = document.getElementById('grafico_evolucao_confirmados').getContext('2d');
 var ctx_evolucao_suspeitos = document.getElementById('grafico_evolucao_suspeitos').getContext('2d');
 var ctx_evolucao_descartados = document.getElementById('grafico_evolucao_descartados').getContext('2d');
+var ctx_evolucao_obitos = document.getElementById('grafico_evolucao_obitos').getContext('2d');
 var ctx_evolucao_internados = document.getElementById('grafico_evolucao_internados').getContext('2d');
 var ctx_grafico_confirmados_descartados = document.getElementById('grafico_confirmados_descartados').getContext('2d');
 var ctx_grafico_confirmados_recuperados = document.getElementById('grafico_confirmados_recuperados').getContext('2d');
 var ctx_grafico_confirmados_suspeitos = document.getElementById('grafico_confirmados_suspeitos').getContext('2d');
+
 
 var data_novos = [];
 var data_recuperados = [];
@@ -200,6 +202,7 @@ var data_confirmados = [];
 var data_suspeitos = [];
 var data_descartados = [];
 var data_internados = [];
+var data_obitos = [];
 var labels_evolucao = [];
 
 fetch(url + '/dados')
@@ -214,6 +217,7 @@ fetch(url + '/dados')
                 data_suspeitos.push(d.suspeitos);
                 data_descartados.push(d.descartados);
                 data_internados.push(d.internados);
+                data_obitos.push(d.obitos);
                 labels_evolucao.push(d.data)
             });
 
@@ -310,6 +314,20 @@ fetch(url + '/dados')
                         label: 'Casos internados por data',
                         data: data_internados,
                         backgroundColor: '#ffa039'
+                    }]
+                }
+            //     // options: options
+            })
+
+            // Evolução óbitos
+            var lineChartEvolucaoObitos = new Chart(ctx_evolucao_obitos, {
+                type: 'line',
+                data: {
+                    labels: labels_evolucao,
+                    datasets: [{
+                        label: 'Óbitos por data',
+                        data: data_obitos,
+                        backgroundColor: '#000'
                     }]
                 }
             //     // options: options
