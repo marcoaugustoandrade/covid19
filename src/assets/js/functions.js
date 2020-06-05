@@ -34,32 +34,29 @@ function run(){
             response.json().then(dados => {
                 atualizacao[0].innerText = dados[0].data
                 atualizacao[1].innerText = dados[0].data
+                atualizacao[2].innerText = dados[0].data
             })
         })
 }
 
 // Gráfico de leitos
-// var ctx_leitos_uti = document.getElementById('grafico_leitos_uti').getContext('2d');
-// var ctx_leitos_enfermaria = document.getElementById('grafico_leitos_enfermaria').getContext('2d');
-// var data_leitos_uti = [];
-// var data_leitos_enfermaria = [];
-// var labels_leitos_uti = ['UTI disponíveis', 'UTI utilizadas'];
-// var labels_leitos_enfermaria = ['Enfermarias disponíveis', 'Enfermarias utilizadas'];
-
-var ctx_leitos = document.getElementById('grafico_leitos').getContext('2d');
+var ctx_leitos = document.getElementById('grafico_leitos');
 var data_leitos = []
-var labels_leitos = ['UTI utilizadas', 'Enfermarias utilizadas', 'Leitos disponíveis'];[]
+var labels_leitos = ['UTI utilizadas', 'Enfermarias utilizadas', 'Leitos disponíveis'];
 
 fetch(url + '/leitos')
     .then(response => {
         response.json().then(dados => {
 
-
             data_leitos.push(dados[0]['uti_utilizado'])
             data_leitos.push(dados[0]['enfermaria_utilizado'])
             data_leitos.push((dados[0]['uti'] + dados[0]['enfermaria']) - (dados[0]['uti_utilizado'] + dados[0]['enfermaria_utilizado']))
 
-            var myBarChartLeitos = new Chart(ctx_leitos, {
+            // Definindo o arial-label
+            let arial_label = `Leitos disponíveis: ${data_leitos[2]}; UTI utilizadas: ${data_leitos[0]}; Enfermarias utilizadas: ${data_leitos[1]}`
+            ctx_leitos.setAttribute("arial-label", arial_label)
+
+            var myBarChartLeitos = new Chart(ctx_leitos.getContext('2d'), {
                 type: 'doughnut',
                 data: {
                     labels: labels_leitos,
@@ -73,46 +70,11 @@ fetch(url + '/leitos')
             })
 
             leitos_percentual.innerText = parseFloat((data_leitos[0] + data_leitos[1]) * 100 / (data_leitos[0] + data_leitos[1] + data_leitos[2])).toFixed().toString() + " %"
-
-            // data_leitos_uti.push(dados[0]['uti'] - dados[0]['uti_utilizado'])
-            // data_leitos_uti.push(dados[0]['uti_utilizado'])
-            // data_leitos_enfermaria.push(dados[0]['enfermaria'] - dados[0]['enfermaria_utilizado'])
-            // data_leitos_enfermaria.push(dados[0]['enfermaria_utilizado'])
-
-           // uti_percentual.innerText = (dados[0]['uti_utilizado'] * 100 / dados[0]['uti']).toFixed().toString() + " %"
-            // enfermaria_percentual.innerHTML = (dados[0]['enfermaria_utilizado'] * 100 / dados[0]['enfermaria']).toFixed(1).toString() + " %"
-
-            // var myBarChartLeitosUti = new Chart(ctx_leitos_uti, {
-            //     type: 'doughnut',
-            //     data: {
-            //         labels: labels_leitos_uti,
-            //         datasets: [{
-            //             label: 'Ocupação dos leitos de UTI',
-            //             data: data_leitos_uti,
-            //             backgroundColor: ['#284d93', '#ec5e50']
-            //         }]
-            //     }
-            //     // options: options
-            // })
-
-            // var myBarChartLeitosEnfermaria = new Chart(ctx_leitos_enfermaria, {
-            //     type: 'doughnut',
-            //     data: {
-            //         labels: labels_leitos_enfermaria,
-            //         datasets: [{
-            //             label: 'Ocupação dos leitos de Enfermarua',
-            //             data: data_leitos_enfermaria,
-            //             backgroundColor: ['#284d93', '#ec5e50']
-            //         }]
-            //     }
-            //     // options: options
-            // })
-
         })
     })
 
 // Gráfico faixa etária
-var ctx_faixa_etaria = document.getElementById('grafico_faixa_etaria').getContext('2d');    
+var ctx_faixa_etaria = document.getElementById('grafico_faixa_etaria');    
 var data = []
 var labels = [
     '0 a 9 anos',
@@ -136,7 +98,11 @@ fetch(url + '/faixaetaria')
             data.push(dados[0]['_60mais'])
             data.push(dados[0]['_sigilo'])
 
-            var myBarChart = new Chart(ctx_faixa_etaria, {
+            // Definindo o arial-label
+            let arial_label = `Casos por faixa etária - De 0 a 9 anos: ${data[0]}; De 10 a 19 anos: ${data[1]}; De 20 a 29 anos: ${data[2]}; De 30 a 39 anos: ${data[3]}; De 40 a 49 anos: ${data[4]}; De 50 a 59 anos: ${data[5]}; Mais de 60 anos: ${data[6]}; Em sigilo: ${data[7]};`
+            ctx_faixa_etaria.setAttribute("arial-label", arial_label)
+
+            var myBarChart = new Chart(ctx_faixa_etaria.getContext('2d'), {
                 type: 'horizontalBar',
                 data: {
                     labels: labels,
@@ -152,12 +118,9 @@ fetch(url + '/faixaetaria')
     })
 
 // Gráfico sexo
-var ctx_sexo = document.getElementById('grafico_sexo').getContext('2d');    
+var ctx_sexo = document.getElementById('grafico_sexo');
 var data_sexo = []
-var labels_sexo = [
-    'Feminino',
-    'Masculino',
-    'Sigilo']
+var labels_sexo = ['Feminino', 'Masculino', 'Sigilo']
 fetch(url + '/sexo')
     .then(response => {
         response.json().then(dados => {
@@ -166,7 +129,11 @@ fetch(url + '/sexo')
             data_sexo.push(dados[0]['masculino'])
             data_sexo.push(dados[0]['sigilo'])
 
-            var myBarChart = new Chart(ctx_sexo, {
+            // Definindo o arial-label
+            let arial_label = `Casos por sexo - Feminino: ${data[0]}; Masculino: ${data[1]}; Em sigilo: ${data[2]}`
+            ctx_sexo.setAttribute("arial-label", arial_label)
+
+            var myBarChart = new Chart(ctx_sexo.getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: labels_sexo,
@@ -407,12 +374,18 @@ fetch(url + '/bairros')
         response.json().then(dados => {
             dados.forEach(d => {
                 
+                let ul = document.querySelector("#ativos-por-bairro")
                 if (d.casos_ativos > 0 && d.coordenadas){
                     
                     L.polygon(d.coordenadas)
                             .setStyle({fillColor: '#ec5e50', color: '#ec5e50'})
                             .addTo(mymap)
                             .bindPopup(d.nome + ": " + d.casos_ativos);
+
+                    // Adicionar na lista
+                    let li = document.createElement('li')
+                    li.innerText = `Bairro: ${d.nome} tem ${d.casos_ativos} casos ativos`
+                    ul.appendChild(li)
                 }
             })
         })
