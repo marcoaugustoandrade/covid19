@@ -88,7 +88,7 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     // TODO: célula para contar número de bairros
     const sheet3 = doc.sheetsByIndex[0];
     await sheet3.loadCells('A12:B47');
-    for (var i = 12; i <= 47; i++){ //<<=== trocar aqui para quantidade de bairros
+    for (var i = 12; i <= 49; i++){ //<<=== trocar aqui para quantidade de bairros
         const bairro = {}
         bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
         bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
