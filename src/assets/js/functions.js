@@ -34,7 +34,7 @@ function run(){
             response.json().then(dados => {
                 atualizacao[0].innerText = dados[0].data
                 atualizacao[1].innerText = dados[0].data
-                atualizacao[2].innerText = dados[0].data
+                atualizacao[2].innerText = "08/06/2020"
             })
         })
 }
@@ -369,9 +369,17 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
+// Aqui
+var ctx_grafico_ativos_por_bairro = document.getElementById('grafico_ativos_por_bairro').getContext('2d');
+
 fetch(url + '/bairros')
     .then(response => {
         response.json().then(dados => {
+            
+            // Aqui
+            var nomes_bairros = []
+            var casos_ativos_bairros = []
+
             dados.forEach(d => {
                 
                 let ul = document.querySelector("#ativos-por-bairro")
@@ -386,7 +394,25 @@ fetch(url + '/bairros')
                     let li = document.createElement('li')
                     li.innerText = `Bairro: ${d.nome} tem ${d.casos_ativos} casos ativos`
                     ul.appendChild(li)
+
+                    // Aqui
+                    nomes_bairros.push(d.nome)
+                    casos_ativos_bairros.push(d.casos_ativos)
                 }
+            })
+
+            // Aqui
+            var barChartAtivosPorBairro = new Chart(ctx_grafico_ativos_por_bairro, {
+                type: 'horizontalBar',
+                data: {
+                    labels: nomes_bairros,
+                    datasets: [{
+                        label: 'Casos ativos por bairro',
+                        data: casos_ativos_bairros,
+                        backgroundColor: '#ed5f51'
+                    }]
+                }
+            //     // options: options
             })
         })
     })

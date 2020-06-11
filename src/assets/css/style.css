@@ -13,7 +13,7 @@
 /* início header */
 .header{
     padding: 0.5em;
-    border: lightgray solid 0.3em;
+    border: lightgray solid 0.45em;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -29,7 +29,6 @@
 
 .header img {
     max-width: 300px;
-    margin: 0.2em;
 }
 
 .title {
