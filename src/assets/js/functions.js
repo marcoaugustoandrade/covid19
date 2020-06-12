@@ -370,15 +370,15 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap);
 
 // Aqui
-var ctx_grafico_ativos_por_bairro = document.getElementById('grafico_ativos_por_bairro').getContext('2d');
+// var ctx_grafico_ativos_por_bairro = document.getElementById('grafico_ativos_por_bairro').getContext('2d');
 
 fetch(url + '/bairros')
     .then(response => {
         response.json().then(dados => {
             
             // Aqui
-            var nomes_bairros = []
-            var casos_ativos_bairros = []
+            // var nomes_bairros = []
+            // var casos_ativos_bairros = []
 
             dados.forEach(d => {
                 
@@ -396,24 +396,24 @@ fetch(url + '/bairros')
                     ul.appendChild(li)
 
                     // Aqui
-                    nomes_bairros.push(d.nome)
-                    casos_ativos_bairros.push(d.casos_ativos)
+                    // nomes_bairros.push(d.nome)
+                    // casos_ativos_bairros.push(d.casos_ativos)
                 }
             })
 
             // Aqui
-            var barChartAtivosPorBairro = new Chart(ctx_grafico_ativos_por_bairro, {
-                type: 'horizontalBar',
-                data: {
-                    labels: nomes_bairros,
-                    datasets: [{
-                        label: 'Casos ativos por bairro',
-                        data: casos_ativos_bairros,
-                        backgroundColor: '#ed5f51'
-                    }]
-                }
-            //     // options: options
-            })
+            // var barChartAtivosPorBairro = new Chart(ctx_grafico_ativos_por_bairro, {
+            //     type: 'horizontalBar',
+            //     data: {
+            //         labels: nomes_bairros,
+            //         datasets: [{
+            //             label: 'Casos ativos por bairro',
+            //             data: casos_ativos_bairros,
+            //             backgroundColor: '#ed5f51'
+            //         }]
+            //     }
+            // //     // options: options
+            // })
         })
     })
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* * {
+            margin: 0; padding: 0;
+        } */
+        text{
+            fill: #ffffff;
+        }
+        .container{
+            width: 600px;
+            margin: 0 auto;
+        }
+        </style>
+</head>
+<body>
+    
+    <div id="container">
+        <svg id="treemap"  width="100%" height="90vh"></svg>
+    </div>
+    
+    <script type="text/javascript" src="tree.js"></script>
+    <script type="text/javascript">
+        
+        let grafico = document.querySelector('#treemap')
+        let container = document.querySelector('#container')
+        
+        function calcular(tamanho, altura){
+            return Treemap.getTreemap({
+                data: [
+                    // { value: 15, color: '#391414', label: 'Barão do Melgaço 3' },
+                    // { value: 10, color: '#4c1a1a', label: 'Centro' },
+                    // { value: 10, color: '#4c1a1a', label: 'Jardim Eldorado' },
+                    // { value: 7, color: '#602020', label: 'BNH' },
+                    // { value: 4, color: '#732626', label: 'Jardim América' },
+                    // { value: 2, color: '#872c2c', label: 'COHAB' },
+                    // { value: 1, color: '#9b3132', label: 'Barão do Melgaço 1' },
+                    { color: '#9b3132', label: 'Barão do Melgaço 3', value: 1},
+                    { color: '#9b3132', label: 'Cidade Nova', value: 1},
+                    { color: '#9b3132', label: 'Cohab', value: 1},
+                    { color: '#9b3132', label: 'Jardim Greenville', value: 1},
+                    { color: '#9b3132', label: 'Jardim Primavera', value: 1},
+                    { color: '#9b3132', label: 'Moisés de Freitas', value: 1},
+                    { color: '#9b3132', label: 'Parque São Paulo', value: 1},
+                    { color: '#9b3132', label: 'Residencial Florença', value: 1},
+                    { color: '#9b3132', label: 'Residencial Orleans', value: 1},
+                    { color: '#9b3132', label: 'Setor Pioneiro', value: 1},
+                    { color: '#9b3132', label: 'Tancredo Neves', value: 1},
+                    { color: '#9b3132', label: 'Zona Rural', value: 1},
+                    { color: '#872c2c', label: 'Assosete', value: 2},
+                    { color: '#872c2c', label: 'Barão do Melgaço 2', value: 2},
+                    { color: '#872c2c', label: 'Bodanese', value: 2},
+                    { color: '#872c2c', label: 'Residencial Solar', value: 2},
+                    { color: '#872c2c', label: 'São José', value: 2},
+                    { color: '#872c2c', label: 'Setor 19', value: 2},
+                    { color: '#872c2c', label: 'Setor 29', value: 2},
+                    { color: '#872c2c', label: 'Vila Operária', value: 2},
+                    { color: '#732626', label: 'BNH', value: 3},
+                    { color: '#602020', label: 'Alto Alegre', value: 4},
+                    { color: '#602020', label: 'Alto dos Parecis', value: 4},
+                    { color: '#602020', label: 'Bela Vista', value: 4},
+                    { color: '#602020', label: 'Cristo Rei', value: 4},
+                    { color: '#4c1a1a', label: 'Jardim Eldorado', value: 6},
+                    { color: '#4c1a1a', label: '5° BEC', value: 7},
+                    { color: '#4c1a1a', label: 'Jardim América', value: 7},
+                    { color: '#4c1a1a', label: 'Jardim das Oliveiras', value: 7},
+                    { color: '#4c1a1a', label: 'Setor 13', value: 7},
+                    { color: '#391414', label: 'Centro', value: 16}
+                ],
+                width: tamanho, // the width and height of your treemap
+                height: altura,
+            })
+        }
+            
+        function desenhar(largura, altura){
+
+            grafico.innerHTML = ''
+            const result = calcular(largura, altura)
+            result.forEach((r) => {
+                                
+                let retangulo = document.createElementNS("http://www.w3.org/2000/svg", 'rect')
+                retangulo.setAttributeNS(null, 'x', r.x)
+                retangulo.setAttributeNS(null, 'y', r.y)
+                retangulo.setAttributeNS(null, 'width', r.width)
+                retangulo.setAttributeNS(null, 'height', r.height)
+                retangulo.setAttributeNS(null, 'fill', r.data.color)
+                retangulo.setAttributeNS(null, 'title', r.data.label)
+                grafico.appendChild(retangulo)
+
+                let texto = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+                texto.setAttributeNS(null, "x", (r.x + 10))      
+                texto.setAttributeNS(null, "y", (r.y + 20))
+                var textNode = document.createTextNode(r.data.label + ": " + r.data.value)
+                texto.appendChild(textNode);
+                grafico.appendChild(texto)
+            })
+        }
+
+        // Tamanho inicial
+        const larguraInicial = container.offsetWidth
+        if (larguraInicial < 500){
+            desenhar(larguraInicial, larguraInicial + 100)
+        } else {
+            desenhar(larguraInicial, larguraInicial / 2)
+        }
+
+        // Caso a janela seja redimensionada
+        window.addEventListener('resize', () => {
+            
+            let larguraRedimensionada = container.offsetWidth
+            if (larguraRedimensionada < 500){
+                desenhar(larguraRedimensionada, larguraRedimensionada * 2)
+            } else {
+                desenhar(larguraRedimensionada, larguraRedimensionada / 2)
+            }
+        })
+    </script>
+</body>
+</html>
