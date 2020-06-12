@@ -34,7 +34,7 @@ function run(){
             response.json().then(dados => {
                 atualizacao[0].innerText = dados[0].data
                 atualizacao[1].innerText = dados[0].data
-                atualizacao[2].innerText = "08/06/2020"
+                atualizacao[2].innerText = dados[0].data
             })
         })
 }
