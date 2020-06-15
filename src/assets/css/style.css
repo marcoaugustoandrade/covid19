@@ -114,7 +114,7 @@
 /* fim alertas */
 
 /* início gráficos */
-.graph{
+.graph, .graph_bairros{
     padding: 0.5em;
     border: lightgray solid 0.3em;
     display: flex;
@@ -129,6 +129,14 @@
     background-color: #FAFAFA;
     min-width: 300px;
     max-width: 400px;
+    display: inline-block;
+}
+.graph_bairros > canvas{
+    margin: 0.5em;
+    background-color: #FAFAFA;
+    min-width: 300px;
+    /* max-width: 600px; */
+    min-height: 800px;
     display: inline-block;
 }
 .percentual_leitos{
@@ -154,6 +162,24 @@
     line-height: 1.5;
 }
 /* fim footer */
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table td, .table th{
+    border: 1px black solid;
+    padding: 0.3em;
+}
+.table th{
+    background-color: #cecece;
+}
+.table tr:hover{
+    background-color: rgb(255, 248, 153);
+}
+.table tr td:nth-child(2){
+    text-align: center;
+}
 
 
 @keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}

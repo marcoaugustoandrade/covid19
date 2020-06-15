@@ -35,6 +35,7 @@ function run(){
                 atualizacao[0].innerText = dados[0].data
                 atualizacao[1].innerText = dados[0].data
                 atualizacao[2].innerText = dados[0].data
+                atualizacao[3].innerText = dados[0].data
             })
         })
 }
@@ -369,11 +370,18 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
+var ctx_grafico_ativos_por_bairro = document.getElementById('grafico_ativos_por_bairro').getContext('2d');
+var labels_bairros = []
+var casos_bairros = []
+var objeto_bairros = []
+
 fetch(url + '/bairros')
     .then(response => {
         response.json().then(dados => {
 
+            // let table = document.querySelector('#tabela_bairros')
             let ul = document.querySelector("#ativos-por-bairro")
+            // let dadosBairros = []
             dados.forEach(d => {
                 
                 if (d.casos_ativos > 0 && d.coordenadas){
@@ -387,8 +395,60 @@ fetch(url + '/bairros')
                     let li = document.createElement('li')
                     li.innerText = `Bairro: ${d.nome} tem ${d.casos_ativos} casos ativos`
                     ul.appendChild(li)
+
+                    // let bairro = {}
+                    // bairro.nome = d.nome
+                    // bairro.casos_ativos = d.casos_ativos
+                    // dadosBairros.push(bairro)
+
+                    // console.log(d.nome)
+
+                    let objeto_bairro = {}
+                    objeto_bairro.nome = d.nome
+                    objeto_bairro.casos_ativos = d.casos_ativos
+                    objeto_bairros.push(objeto_bairro)
+
+                    // labels_bairros.push(d.nome)
+                    // casos_bairros.push(d.casos_ativos)
                 }
             })
+
+            objeto_bairros = objeto_bairros.sort((a, b) => (a.casos_ativos > b.casos_ativos) ? -1 : 1)
+            objeto_bairros.forEach((b) => {
+                labels_bairros.push(b.nome)
+                casos_bairros.push(b.casos_ativos)
+            })
+
+            var barChartAtivosPorBairro = new Chart(ctx_grafico_ativos_por_bairro, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_bairros,
+                    datasets: [{
+                        label: 'Ativos por bairro',
+                        data: casos_bairros,
+                        backgroundColor: '#ed5f51'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: false
+                }
+            })
+
+            // console.log(dadosBairros.sort((nome, caso) => parseFloat(caso.price)))
+
+            // dadosBairros.forEach(d => {
+            //     let tr = document.createElement('tr')
+            //     let tdNome = document.createElement('td')
+            //     tdNome.innerText = d.nome
+            //     let tdCasoAtivos = document.createElement('td')
+            //     tdCasoAtivos.innerText = d.casos_ativos
+
+            //     tr.appendChild(tdNome)
+            //     tr.appendChild(tdCasoAtivos)
+            //     table.appendChild(tr)
+            // })
         })
     })
          
