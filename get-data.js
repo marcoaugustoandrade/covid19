@@ -87,8 +87,8 @@ const doc = new GoogleSpreadsheet('1a-oNmhM-D1MOSY43jmFbUfGM_RMbw7n2mKccSXZOzd8'
     // Capturando os casos ativos por bairro
     // TODO: célula para contar número de bairros
     const sheet3 = doc.sheetsByIndex[0];
-    await sheet3.loadCells('A12:B66');
-    for (var i = 12; i <= 66; i++){ //<<=== trocar aqui para quantidade de bairros
+    await sheet3.loadCells('A12:B69');
+    for (var i = 12; i <= 69; i++){ //<<=== trocar aqui para quantidade de bairros
         const bairro = {}
         bairro.nome = sheet3.getCellByA1('A' + i.toString()).value;
         bairro.casos_ativos = sheet3.getCellByA1('B' + i.toString()).value;
