@@ -1,0 +1,7 @@
+version: '3.1'
+services: 
+  app:
+    image: fslab/covid19
+    restart: always
+    ports: 
+      - "80:80"
